@@ -1,0 +1,211 @@
+header {
+    position: absolute;
+    top: 0;
+    background-color: #ffffff;
+    border-bottom-color: #cccccc;
+    width: 960px;
+}
+
+#name {
+    position: relative;
+    right: 20px;
+    float: left;
+    background-color: #4aaaa5;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: xx-large;
+    width: 325px;
+    height: 75px;
+    text-align: center;
+    line-height: 75px;
+    
+}
+
+nav {
+    
+    float: right;
+    
+}
+
+li {
+    display: inline;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+    line-height: 75px;
+
+}
+
+.container {
+    
+    width: 960px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #cccccc;
+    padding: 20px;
+    
+}
+
+
+#about {
+
+    position: relative;
+    nav-down: auto
+    float: left;
+    background-color: white;
+    color: #4aaaa5;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: xx-large;
+    width: 325px;
+    height: 75px;
+    text-align: left;
+    line-height: 75px;
+    margin-top: 0px;
+
+}
+
+#biopic {
+    float: left;
+    overflow-wrap: break-word;
+    width: 350px;
+    height: 350px;
+    margin: 15px 15px 15px 0px;
+}
+
+p {
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    margin-right: 20px;
+}
+
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 8px solid #4aaaa5;
+    background-color: darkgray;
+    line-height: 50px;
+    text-align: center;
+    color: lightgray;
+}
+
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 15px;
+  margin-bottom: 16px;
+  resize: vertical;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+#contact {
+
+    position: relative;
+    right: 20px;
+    nav-down: auto
+    float: left;
+    background-color: white;
+    color: #4aaaa5;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: xx-large;
+    width: 325px;
+    height: 75px;
+    text-align: :left;
+    line-height: 75px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+#portfolio {
+
+        float: left;
+        overflow-wrap: break-word;
+        width: 350px;
+        height: 350px;
+        margin: 15px 15px 15px 0px;
+    
+}
+
+
+
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #f1f1f1;
+    padding: 20px;
+    font-family: Arial;
+  }
+  
+  .row {
+    margin: 8px -16px;
+  }
+  
+  /* Add padding BETWEEN each column (if you want) */
+  .row,
+  .row > .column {
+    padding: 8px;
+  }
+  
+  /* Create four equal columns that floats next to each other */
+  .column {
+    float: left;
+    width: 25%;
+  }
+  
+  /* Clear floats after rows */ 
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Content */
+  .content {
+    background-color: white;
+    padding: 10px;
+  }
+  
+  /* Responsive layout - makes a two column-layout instead of four columns */
+  @media screen and (max-width: 900px) {
+    .column {
+      width: 50%;
+    }
+  }
+  
+  /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+    }
+  }
