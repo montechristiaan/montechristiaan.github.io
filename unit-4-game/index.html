@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+
+  <!-- Link to the jQuery Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <!-- AND/OR YOUR OWN CSS -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-4" style="text-align: center; background-color: violet; border: solid 3px black;">
+            <h1 class="display-4" style="color:darkred; font-family:Verdana, Geneva, Tahoma, sans-serif;">Crystal Collector</h1>
+        </div>
+    </div>
+    
+    <br>
+    
+    <div class="row">
+        <div class="col-md-6" style="background-color: darkslateblue; border: solid 3px black;">
+            <p style="margin-top: 20px;">You will be given a random number at the start of the game.</p>
+            <br>
+            <p>There are four Dark Crystal characters below. By clicking on a character, you will add a specific amount of points to your total score.</p>
+            <br>
+            <p>You win the game by matching your total score to the random number. You lose the game if your total score goes above the random number.</p>
+            <br>
+            <p>The value of each character is hidden from you until you click on it.</p>
+            <br>
+            <p>Each time the game starts, the values of each character will change.</p>
+            <br>
+            <p style="margin-bottom: 20px;">Good Luck!</p>
+        </div>
+    </div>
+    
+    <br>
+
+    <div class="row">
+        <div class="col-md-4" id="Guess-Number" style="border: solid 3px black; background-color: lightgrey; height: 300px; padding-top: 30px; font-size: xx-large;">
+            
+        </div>
+
+        <div class="col-md-2" style="border: solid 3px black; background-color:olivedrab;">
+            <p style="margin-top: 10px;">Wins:</p>
+            <p id="wins" style="margin-top: 10px;"></p>
+            <br>
+            <p style="margin-top: 10px;">Losses:</p>
+            <P id="losses" style="margin-top: 10px;"></P>
+         </div>
+    </div>
+    
+    <br>
+
+    <div class="row">
+
+        <div class="col-md-6" id="crystals">
+
+        </div>
+
+    </div>
+
+<br>
+
+<div class="row">
+    <div class="col-md-4" id="score-box" style="border: solid 3px black; background-color: white; height: 50px;">
+        <h3 style="font-size: large; margin-top: 10px;">Your total score is:</h3>
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="col-md-4" style="border: solid 3px black; background-color: white; height: 150px;">
+        <h1 id="total-guessed" style="font-size: xx-large; margin-top: 10px;">0</h1>
+
+
+    </div>
+</div>
+
+
+
+
+
+</div>
+  <!-- Link to your JavaScript -->
+  <script type="text/javascript" src="assets/javascript/game.js"></script>
+
+  <audio id="Dark-Theme">
+    <source src="assets/music/01 - The Dark Crystal Overture.mp3">
+
+</audio>
+</body>
+
+</html>
+
+
+

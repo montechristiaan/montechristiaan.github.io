@@ -1,0 +1,37 @@
+body {
+    background-image: url(http://4.bp.blogspot.com/_25vj1c-_8O0/ScL6TijRAeI/AAAAAAAAAVE/_bnHdHt5464/s400/castle_multipass.jpg);
+    background-size: 100%;
+}
+
+p {
+    color: ghostwhite;
+    font-size: large;
+}
+
+img {
+    border: solid 2px black;
+    height: 125px;
+    width: 125px;
+    float: left;
+}
+
+#crystals {
+    display: flex;
+    justify-content: space-around; 
+    align-items: center; 
+}
+
+.crystal {
+    border: 2px solid black; 
+    height: 125px;
+    width: 125px;
+    border-radius: 4px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: box-shadow 1s;
+}
+
+.crystal:hover{ 
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 1s; 
+}
