@@ -4,49 +4,49 @@ $(document).ready(function () {
             question: "How old was Anna Simmons when 'Once Upon a Time' first aired on ABC?", 
             choice: ["1", "2", "3", "4"],
             answer: 3,
-            photo: "assets/images/..."
+            photo: "assets/images/henry.gif"
          },
          {
              question: "Which birthday is Emma celebrating when she first reunites with Henry?", 
             choice: ["28th", "30th", "32nd", "35th"],
             answer: 0,
-            photo: "assets/images/..."
+            photo: "assets/images/emma.gif"
          }, 
          {
              question: "What is Captain Hook's real name in the show?", 
             choice: ["Killian Jones", "Bradley Jones", "Davey Jones", "Marcus Jones" ],
             answer: 0,
-            photo: "assets/images/..."
+            photo: "assets/images/hook.gif"
         }, 
         {
             question: "What is the name of the poison that kills Hook's brother and almost kills Prince Charming?", 
             choice: ["Dreamshade", "Deathshade", "Nightshade", "Nevershade" ],
             answer: 0,
-            photo: "assets/images/..."
+            photo: "assets/images/dreamshade.gif"
         }, 
         {
             question: "What weapon can be used to temporarily 'freeze' someone?", 
             choice: ["Wooden stake", "Fairy dust", "A wand", "Squid ink" ],
             answer: 3,
-            photo: "assets/images/..."
+            photo: "assets/images/squidink.gif"
         }, 
         {
             question: "Who is the man with the lion tattoo?", 
             choice: ["Charming", "Robin Hood", "Hook", "Neal" ],
             answer: 1,
-            photo: "assets/images/..."
+            photo: "assets/images/robinhood.gif"
         }, 
         {
             question: "What is the name of Captain Hook's ship?", 
             choice: ["Anna of the Sea", "Jolly Roger", "Daddy Boo Baddy", "The Swan" ],
             answer: 1,
-            photo: "assets/images/..."
+            photo: "assets/images/jollyroger.gif"
         }, 
         {
             question: "What relationship does Peter Pan have to Henry?", 
             choice: ["Great Grandfather", "Grandfather", "Uncle", "Cousin" ],
             answer: 0,
-            photo: "assets/images/..."
+            photo: "assets/images/peterpan.gif"
         }];
     
     var correctCount = 0;
