@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    //This is the object to store all the info I need for questions, choices, right answers, and associated photos
     var options = [
         {
             question: "How old was Anna Simmons when 'Once Upon a Time' first aired on ABC?", 
@@ -48,10 +49,11 @@ $(document).ready(function () {
             answer: 0,
             photo: "assets/images/peterpan.gif"
         }];
-    
+    //these are where right answers, wrong answers, and unsanswered questions will be stored
     var correctCount = 0;
     var wrongCount = 0;
     var unanswerCount = 0;
+    //starting the timer at 20 seconds for each question
     var timer = 20;
     var intervalId;
     var userGuess ="";
@@ -65,7 +67,7 @@ $(document).ready(function () {
     
     
     $("#reset").hide();
-    
+    //hiding the start button, displaying the question, and starting the timer when start button is clicked
     $("#start").on("click", function () {
             $("#start").hide();
             displayQuestion();
@@ -74,14 +76,14 @@ $(document).ready(function () {
         holder.push(options[i]);
     }
         })
-    
+    //setting timer to count down by 1 second from :20
     function runTimer(){
         if (!running) {
         intervalId = setInterval(decrement, 1000); 
         running = true;
         }
     }
-    
+    //placing timer in the dom, changing message if timer reaches zero, displaying correct answer
     function decrement() {
         $("#timeleft").html("<h3>Time remaining: " + timer + "</h3>");
         timer --;
@@ -98,7 +100,7 @@ $(document).ready(function () {
         running = false;
         clearInterval(intervalId);
     }
-  
+  //displaying random questions from options 
     function displayQuestion() {
         index = Math.floor(Math.random()*options.length);
         pick = options[index];
@@ -110,7 +112,7 @@ $(document).ready(function () {
                 userChoice.attr("data-guessvalue", i);
                 $("#answers").append(userChoice);
     }
-    
+    //adding users' guess to correct or wrong count to be displayed at the end
     $(".answerchoice").on("click", function () {
         userGuess = parseInt($(this).attr("data-guessvalue"));
     
@@ -131,7 +133,7 @@ $(document).ready(function () {
     })
     }
     
-    
+    //show results screen when all questions have run
     function hidepicture () {
         $("#answers").append("<img src=" + pick.photo + ">");
         newArray.push(pick);
@@ -161,7 +163,7 @@ $(document).ready(function () {
     
     
     }
-    
+    //empty all results and restart the game if user clicks play again
     $("#reset").on("click", function() {
         $("#reset").hide();
         $("#answers").empty();
