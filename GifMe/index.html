@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Gif Me!</title>
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+
+<div class="row">
+    <div class="col-md-4" style="margin: 50px auto;">
+
+        <h1 style="font-size:100px; font-family: 'Times New Roman', Times, serif; text-align: center; color: white;">Gif Me!</h1>
+<br><br>
+    <button type="button" class="btn btn-dark" data-actor="John Travolta">John Travolta</button>
+    <button type="button" class="btn btn-dark" data-actor="Zachary Levi">Zachary Levi</button>
+    <button type="button" class="btn btn-dark" data-actor="David Tennant">David Tennant</button>
+    </div>
+</div>
+<div class="row">
+<div class="col-md-4" style="margin: 50px auto;">
+  <div id="gifs-go-here"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    
+    $("button").on("click", function() {
+      var topic = $(this).attr("data-actor");
+      var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=uEX1VVrsPHT8wvbLGMBSPA4s67BWRHn3&q=" + topic + "&limit=10&offset=0&rating=G&lang=en";
+      
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+        .then(function(response) {
+          console.log(queryURL);
+          console.log(response);
+          
+          var results = response.data;
+          
+          for (var i = 0; i < results.length; i++) {
+            var actorDiv = $("<div>");
+            var p = $("<p>").text("Rating: " + results[i].rating);
+            var actorImage = $("<img>");
+            actorImage.attr("src", results[i].images.fixed_height.url);
+            actorDiv.append(p);
+            actorDiv.append(actorImage);
+            $("#gifs-go-here").prepend(actorDiv);
+          }
+        });
+    });
+  </script>
+</body>
+
+</html>
