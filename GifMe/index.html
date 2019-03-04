@@ -13,9 +13,11 @@
 
 
 <div class="row">
-    <div class="col-md-4" style="margin: 50px auto;">
+    <div class="col-md-4" id="buttons-buttons" style="margin: 50px auto;">
 
-        <h1 style="font-size:100px; font-family: 'Times New Roman', Times, serif; text-align: center; color: white;">Gif Me!</h1>
+    <h1 style="font-size:100px; font-family: 'Times New Roman', Times, serif; text-align: center; color: white;">Gif Me!</h1>
+<br><br>
+    <input type="text" class="form-control" id="celebSearch" Placeholder="Enter celeb's name here" aria-label="Enter celeb's name here" aria-describedby="basic-addon2">
 <br><br>
     <button type="button" class="btn btn-dark" data-actor="John Travolta">John Travolta</button>
     <button type="button" class="btn btn-dark" data-actor="Zachary Levi">Zachary Levi</button>
@@ -31,10 +33,28 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
     
+    var celebs = [];
+
+    $("#celebSearch").on("keypress", function(event) {
+    if(event.keyCode === 13) {
+    event.preventDefault();
+   
+    var userInput = $("#celebSearch").val();
+    var newButton = $("<button>");
+    newButton.attr("type", "button");
+    newButton.addClass("btn btn-dark");
+    newButton.attr("data-actor", userInput);
+    newButton.attr("style", "margin: 3px 3px 3px 3px;");
+    newButton.text(userInput.trim());
+    $("#buttons-buttons").append(newButton);
+    celebs.push(userInput);
+    }
+  });
+
     $("button").on("click", function() {
       var topic = $(this).attr("data-actor");
       var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=uEX1VVrsPHT8wvbLGMBSPA4s67BWRHn3&q=" + topic + "&limit=10&offset=0&rating=G&lang=en";
-      
+
       $.ajax({
         url: queryURL,
         method: "GET"
@@ -58,6 +78,7 @@
             actorDiv.append(actorImage);
             $("#gifs-go-here").prepend(actorDiv);
           }
+          
           $(".gif").on("click", function() {
           var state = $(this).attr("data-state");
             if(state === "still") {
