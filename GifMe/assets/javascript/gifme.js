@@ -1,5 +1,5 @@
     //create an array for initial celebrity names that will be added to
-    var topic = ["John Travolta", "Tom Hanks", "David Tennant"];
+    var topic = ["Will Ferrell", "Paul Rudd", "Steve Carrell"];
     //create dynamic buttons from the names in the array and put them on the page
     function addButtons() {
     for(var j = 0; j < topic.length; j++) {
