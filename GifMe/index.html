@@ -19,9 +19,8 @@
 <br><br>
     <input type="text" class="form-control" id="celebSearch" Placeholder="Enter celeb's name here" aria-label="Enter celeb's name here" aria-describedby="basic-addon2">
 <br><br>
-    <button type="button" class="btn btn-dark" data-actor="John Travolta">John Travolta</button>
-    <button type="button" class="btn btn-dark" data-actor="Zachary Levi">Zachary Levi</button>
-    <button type="button" class="btn btn-dark" data-actor="David Tennant">David Tennant</button>
+    <div class="button-list"></div>
+    
     </div>
 </div>
 <div class="row">
@@ -32,29 +31,46 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
-    
-    var celebs = [];
 
-    $("#celebSearch").on("keypress", function(event) {
-    if(event.keyCode === 13) {
-    event.preventDefault();
-   
-    var userInput = $("#celebSearch").val();
-    var newButton = $("<button>");
-    newButton.attr("type", "button");
-    newButton.addClass("btn btn-dark");
-    newButton.attr("data-actor", userInput);
-    newButton.attr("style", "margin: 3px 3px 3px 3px;");
-    newButton.text(userInput.trim());
-    $("#buttons-buttons").append(newButton);
-    celebs.push(userInput);
-    }
-  });
+     
+    var topic = ["John Travolta", "Tom Hanks", "David Tennant"];
 
-    $("button").on("click", function() {
-      var topic = $(this).attr("data-actor");
-      var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=uEX1VVrsPHT8wvbLGMBSPA4s67BWRHn3&q=" + topic + "&limit=10&offset=0&rating=G&lang=en";
+    function addButtons() {
+    for(var j = 0; j < topic.length; j++) {
+    var button = $("<button>");
+    button.attr("type", "button");
+    button.addClass("btn btn-dark");
+    button.attr("id", topic[j]);
+    button.attr("data-actor", topic[j]);
+    button.attr("style", "margin: 3px 3px 3px 3px;");
+    button.text(topic[j]);
+    $(".button-list").append(button);}
+  };
+    addButtons();
 
+    $("#celebSearch").on("keydown", function(event) {
+          if(event.keyCode == 13) {
+          event.preventDefault();
+          var specific = $("#celebSearch").val().trim();
+          var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=uEX1VVrsPHT8wvbLGMBSPA4s67BWRHn3&q=" + specific + "&limit=10&offset=0&rating=G&lang=en";
+          
+          $.ajax({
+          url: queryURL,
+          method: "GET"
+          })
+        .then(function(response) {
+           
+          topic.push(specific);
+          $(".button-list").empty();
+          addButtons();
+        })
+      };
+    });
+          
+      $(".button-list").on("click", "button", function showResults() {
+      var specific = $(this).attr("data-actor");
+      var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=uEX1VVrsPHT8wvbLGMBSPA4s67BWRHn3&q=" + specific + "&limit=10&offset=0&rating=G&lang=en";
+      
       $.ajax({
         url: queryURL,
         method: "GET"
@@ -92,7 +108,10 @@
         });
       });
     });
+  
   </script>
 </body>
 
 </html>
+
+
