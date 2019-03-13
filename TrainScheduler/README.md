@@ -1,0 +1,1 @@
+Find out when your next train is scheduled to arrive.  Simply enter the name of your train, your destination, the time of the first train, and the frequency of the train.. and the Train Scheduler will calculate when the next train is due and how many minutes away it is from you!  The app will also store any train that you submit for future use. 
