@@ -8,13 +8,6 @@ p {
     font-size: large;
 }
 
-img {
-    border: solid 2px black;
-    height: 125px;
-    width: 125px;
-    float: left;
-}
-
 #crystals {
     display: flex;
     justify-content: space-around; 
