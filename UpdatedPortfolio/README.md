@@ -1,0 +1,1 @@
+Updated portfolio using Runaway template.  Customized by taking out pages I didn't need, changing navbar, footer, functionality of the fancybox.  Added links, images, and made sure all links worked across the page.  Checked for functionality on all devices. 
