@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+var fs = require("fs");
+
 var keys = require("./keys.js");
 
 var axios = require("axios");
@@ -19,6 +21,8 @@ var artist = "";
 var song = "";
 
 var command = process.argv[2];
+
+var search = process.argv.slice(3).join(" ");
 
 function movieThis() {
 
@@ -64,7 +68,7 @@ axios.get(queryUrl).then(
             }
             var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
-            console.log(queryUrl);
+            //console.log(queryUrl);
 
             axios.get(queryUrl).then(
                 function(response) {
@@ -87,7 +91,7 @@ axios.get(queryUrl).then(
                     }
                 }
 
-                spotify.search({ type: 'track', query: song }, function(err, data) {
+                spotify.search({ type: 'artist,track', query: song }, function(err, data) {
                     if (err) {
                       return console.log('Error occurred: ' + err);
                     }
@@ -100,3 +104,24 @@ axios.get(queryUrl).then(
             }
         };
         spotifyThisSong();
+
+        function doWhatItSays() {
+            fs.readFile("random.txt", "utf8", function (err, data) {
+                if(err) {
+                    console.log(err);
+                }
+                var dataArr = data.split(",");
+                spotifyThisSong(dataArr[1]);
+                //console.log(dataArr);
+            })
+        };
+        doWhatItSays();
+
+        function logText () {
+            fs.appendFile("log.txt", search + " , ", function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            })
+        };
+        logText();
