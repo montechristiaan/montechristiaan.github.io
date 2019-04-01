@@ -78,7 +78,7 @@ axios.get(queryUrl).then(
 
         function spotifyThisSong() {
             if(command == "spotify-this-song") {
-                for(var i = 0; i < nodeArgs.length; i++) {
+                for(var i = 3; i < nodeArgs.length; i++) {
                     if(i > 3 && i < nodeArgs.length) {
                         song = song + "+" + nodeArgs[i];
                     }
@@ -86,13 +86,16 @@ axios.get(queryUrl).then(
                         song += nodeArgs[i];
                     }
                 }
-                spotify.search({type: "track", query: song}, function(err, data) {
+
+                spotify.search({ type: 'track', query: song }, function(err, data) {
                     if (err) {
                       return console.log('Error occurred: ' + err);
                     }
-                   else {
-                  console.log(data.items); 
-                   }
+                   
+                  console.log("Artist: " + data.tracks.items[0].artists[0].name); 
+                  console.log("Song: " + data.tracks.items[0].name);
+                  console.log("Album: " + data.tracks.items[0].album.name);
+                  console.log("Link: " + data.tracks.items[0].external_urls.spotify);
                   });
             }
         };
