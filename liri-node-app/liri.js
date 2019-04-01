@@ -90,10 +90,10 @@ axios.get(queryUrl).then(
                         song += nodeArgs[i];
                     }
                 }
-
-                spotify.search({ type: 'artist,track', query: song }, function(err, data) {
-                    if (err) {
-                      return console.log('Error occurred: ' + err);
+                
+                spotify.search({ type: 'artist,track', query: song }, function(error, data) {
+                    if (error) {
+                      return console.log("Your song information: ");
                     }
                    
                   console.log("Artist: " + data.tracks.items[0].artists[0].name); 
@@ -103,7 +103,7 @@ axios.get(queryUrl).then(
                   });
             }
         };
-        spotifyThisSong();
+                spotifyThisSong();
 
         function doWhatItSays() {
             fs.readFile("random.txt", "utf8", function (err, data) {
@@ -125,3 +125,6 @@ axios.get(queryUrl).then(
             })
         };
         logText();
+        
+
+       
