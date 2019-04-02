@@ -36,6 +36,9 @@ for(var i = 3; i < nodeArgs.length; i++) {
         movieName += nodeArgs[i];
     }
 }
+    if(movieName == "") {
+        movieName = "Mr. Nobody";
+    };
 
 var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
@@ -81,6 +84,7 @@ axios.get(queryUrl).then(
         concertThis();
 
         function spotifyThisSong() {
+
             if(command == "spotify-this-song") {
                 for(var i = 3; i < nodeArgs.length; i++) {
                     if(i > 3 && i < nodeArgs.length) {
@@ -90,20 +94,20 @@ axios.get(queryUrl).then(
                         song += nodeArgs[i];
                     }
                 }
+                if(song == "") {
+                    song = "Ace of Base";
+                };
                 
-                spotify.search({ type: 'artist,track', query: song }, function(error, data) {
+                spotify.search({ type: 'track', query: song }, function(error, data) {
                     if (error) {
                       return console.log("Error occurred: " + error);
                     }
-                   for(var i = 19; i < data.tracks.items.length; i++) {
+                   for(var i = 0; i < data.tracks.items.length; i++) {
                     
                         var songData = data.tracks.items[i];
-                  
-                        console.log("Artist: " + songData.artists[0].name); 
-                        console.log("Song: " + songData.name);
-                        console.log("Album: " + songData.album.name);
-                        console.log("Link: " + songData.external_urls.spotify);
-                    }
+            
+                        return console.log("Artist: " + songData.artists[0].name + "\nSong: " + songData.name + "\nAlbum: " + songData.album.name + "\nLink: " + songData.external_urls.spotify); 
+                }
                   });
             }
         };
@@ -114,8 +118,11 @@ axios.get(queryUrl).then(
                 if(err) {
                     console.log(err);
                 }
+                if(command == "") {
                 var dataArr = data.split(",");
-                spotifyThisSong(dataArr[1]);
+                song = dataArr[1];
+                spotifyThisSong("spotify-this-song" + song);
+                }
                 //console.log(dataArr);
             })
         };
