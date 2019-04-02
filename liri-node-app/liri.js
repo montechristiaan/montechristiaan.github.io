@@ -93,13 +93,17 @@ axios.get(queryUrl).then(
                 
                 spotify.search({ type: 'artist,track', query: song }, function(error, data) {
                     if (error) {
-                      return console.log("Your song information: ");
+                      return console.log("Error occurred: " + error);
                     }
-                   
-                  console.log("Artist: " + data.tracks.items[0].artists[0].name); 
-                  console.log("Song: " + data.tracks.items[0].name);
-                  console.log("Album: " + data.tracks.items[0].album.name);
-                  console.log("Link: " + data.tracks.items[0].external_urls.spotify);
+                   for(var i = 19; i < data.tracks.items.length; i++) {
+                    
+                        var songData = data.tracks.items[i];
+                  
+                        console.log("Artist: " + songData.artists[0].name); 
+                        console.log("Song: " + songData.name);
+                        console.log("Album: " + songData.album.name);
+                        console.log("Link: " + songData.external_urls.spotify);
+                    }
                   });
             }
         };
