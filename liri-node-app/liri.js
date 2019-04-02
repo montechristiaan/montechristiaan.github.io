@@ -14,35 +14,61 @@ var spotify = new Spotify(keys.spotify);
 
 var nodeArgs = process.argv;
 
-var movieName = "";
-
-var artist = "";
-
-var song = "";
-
 var command = process.argv[2];
 
-var search = process.argv.slice(3).join(" ");
-
-function movieThis() {
-
-    if(command == "movie-this") {
+var input ="";
 
 for(var i = 3; i < nodeArgs.length; i++) {
     if(i > 3 && i < nodeArgs.length) {
-        movieName = movieName + "+" + nodeArgs[i];
+        input = input + "+" + nodeArgs[i];
     }
     else {
-        movieName += nodeArgs[i];
+        input += nodeArgs[i];
     }
 }
-    if(movieName == "") {
-        movieName = "Mr. Nobody";
-    };
+
+var search = process.argv.slice(3).join(" ");
+
+switch(command) {
+    case "movie-this":
+     if(input) {
+         movieThis(input);
+     }
+     else {
+         movieThis("Mr. Nobody");
+     };
+     break;
+
+    case "concert-this":
+     if(input) {
+     concertThis(input);
+     }
+     else {
+         console.log("Please enter an artist name!");
+     };
+     break;
+
+    case "spotify-this-song":
+     if(input) {
+         spotifyThisSong(input);
+     }
+     else {
+         spotifyThisSong("Ace of Base");
+     }
+     break;
+
+     case "do-what-it-says":
+       doWhatItSays();
+       break;
+
+    default:
+     console.log("Please enter a command: 'movie-this', 'concert-this', 'spotify-this-song', 'do-what-it-says'");
+     break; 
+}
+
+function movieThis(movieName) {
 
 var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
-
-//console.log(queryUrl);
 
 axios.get(queryUrl).then(
     function(response) {
@@ -55,23 +81,11 @@ axios.get(queryUrl).then(
       console.log("Plot: " + response.data.Plot);
       console.log("Actors: " + response.data.Actors);
     }
-  )}};
-  movieThis();
+  )};
 
-    function concertThis() {
+    function concertThis(artist) {
         
-        if(command == "concert-this") {
-            for(var i = 3; i < nodeArgs.length; i++) {
-                if(i > 3 && i < nodeArgs.length) {
-                    artist = artist + "+" + nodeArgs[i];
-                }
-                else {
-                    artist += nodeArgs[i];
-                }
-            }
             var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
-
-            //console.log(queryUrl);
 
             axios.get(queryUrl).then(
                 function(response) {
@@ -79,63 +93,33 @@ axios.get(queryUrl).then(
                     console.log("Location: " + response.data[i].venue.city + ", " + response.data[i].venue.region + ", " + response.data[i].venue.country);
                     console.log("Date: " + moment(response.data[i].datetime).format("MM/DD/YYYY"));
                 });
-        }
-    };
-        concertThis();
-
-        function spotifyThisSong() {
-
-            if(command == "spotify-this-song") {
-                for(var i = 3; i < nodeArgs.length; i++) {
-                    if(i > 3 && i < nodeArgs.length) {
-                        song = song + "+" + nodeArgs[i];
-                    }
-                    else {
-                        song += nodeArgs[i];
-                    }
-                }
-                if(song == "") {
-                    song = "Ace of Base";
-                };
-                
-                spotify.search({ type: 'track', query: song }, function(error, data) {
-                    if (error) {
-                      return console.log("Error occurred: " + error);
-                    }
-                   for(var i = 0; i < data.tracks.items.length; i++) {
-                    
-                        var songData = data.tracks.items[i];
-            
-                        return console.log("Artist: " + songData.artists[0].name + "\nSong: " + songData.name + "\nAlbum: " + songData.album.name + "\nLink: " + songData.external_urls.spotify); 
-                }
-                  });
-            }
         };
-                spotifyThisSong();
+
+
+        function spotifyThisSong(song) {
+            spotify.search({ type: 'track', query: song }, function(error, data) {
+            if(!error) {
+                for(var i = 0; i < data.tracks.items.length; i++) {
+                    var songData = data.tracks.items[i];
+                    return console.log("Artist: " + songData.artists[0].name + "\nSong: " + songData.name + "\nAlbum: " + songData.album.name + "\nLink: " + songData.external_urls.spotify); 
+                }
+            }      
+                else {
+                    console.log("error occurred");
+                }   
+            });
+        }
+            
 
         function doWhatItSays() {
             fs.readFile("random.txt", "utf8", function (err, data) {
                 if(err) {
                     console.log(err);
                 }
-                if(command == "") {
                 var dataArr = data.split(",");
-                song = dataArr[1];
-                spotifyThisSong("spotify-this-song" + song);
-                }
-                //console.log(dataArr);
-            })
+                spotifyThisSong(dataArr[1]);
+            });
         };
-        doWhatItSays();
-
-        function logText () {
-            fs.appendFile("log.txt", search + " , ", function (err) {
-                if (err) {
-                    console.log(err);
-                }
-            })
-        };
-        logText();
         
 
        
