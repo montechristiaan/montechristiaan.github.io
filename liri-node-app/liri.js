@@ -53,7 +53,7 @@ switch(command) {
          spotifyThisSong(input);
      }
      else {
-         spotifyThisSong("Ace of Base");
+         spotifyThisSong("The Sign Ace of Base");
      }
      break;
 
@@ -80,8 +80,15 @@ axios.get(queryUrl).then(
       console.log("Language: " + response.data.Language);
       console.log("Plot: " + response.data.Plot);
       console.log("Actors: " + response.data.Actors);
+      console.log("------------PLEASE ENTER NEXT SEARCH------------");
+
+      fs.appendFile('log.txt', "\nTitle: " + response.data.Title + "\nRelease Year: " + response.data.Year + "\nIMDB Rating: " + response.data.imdbRating + "\nRotten Tomatoes Rating: " + response.data.Ratings[1].Value + "\nProduced in: " + response.data.Country + "\nLanguage: " + response.data.Language + "\nPlot: " + response.data.Plot + "\nActors: " + response.data.Actors + "\n----------------------------------------------------------------------------\n", function(err) {
+          if(err) {
+              console.log("error");
+          }
+        });  
+      });
     }
-  )};
 
     function concertThis(artist) {
         
@@ -89,11 +96,19 @@ axios.get(queryUrl).then(
 
             axios.get(queryUrl).then(
                 function(response) {
+                    console.log("Artist: " + response.data[i].lineup);
                     console.log("Venue name: " + response.data[i].venue.name);
                     console.log("Location: " + response.data[i].venue.city + ", " + response.data[i].venue.region + ", " + response.data[i].venue.country);
                     console.log("Date: " + moment(response.data[i].datetime).format("MM/DD/YYYY"));
+                    console.log("------------PLEASE ENTER NEXT SEARCH------------");
+
+                    fs.appendFile('log.txt', "\nArtist: " + response.data[i].lineup + "\nVenue name: " + response.data[i].venue.name + "\nLocation: " + response.data[i].venue.city + "," + response.data[i].venue.region + "," + response.data[i].venue.country + "\nDate: " + moment(response.data[i].datetime).format("MM/DD/YYYY") + "\n----------------------------------------------------------------------------\n", function(err) {
+                        if(err) {
+                            console.log("error")
+                        }
+                    });
                 });
-        };
+            };
 
 
         function spotifyThisSong(song) {
@@ -101,7 +116,13 @@ axios.get(queryUrl).then(
             if(!error) {
                 for(var i = 0; i < data.tracks.items.length; i++) {
                     var songData = data.tracks.items[i];
-                    return console.log("Artist: " + songData.artists[0].name + "\nSong: " + songData.name + "\nAlbum: " + songData.album.name + "\nLink: " + songData.external_urls.spotify); 
+                    console.log("Artist: " + songData.artists[0].name + "\nSong: " + songData.name + "\nAlbum: " + songData.album.name + "\nLink: " + songData.external_urls.spotify + "\n--------------------------------------------------------------"); 
+
+                    fs.appendFile("log.txt", "\nArtist: " + songData.artists[0].name + "\nSong: " + songData.name + "\nAlbum: " + songData.album.name + "\nLink: " + songData.external_urls.spotify + "\n----------------------------------------------------------------------------\n", function(err) {
+                        if(err) {
+                            console.log("error");
+                        }
+                    }); 
                 }
             }      
                 else {
@@ -110,7 +131,6 @@ axios.get(queryUrl).then(
             });
         }
             
-
         function doWhatItSays() {
             fs.readFile("random.txt", "utf8", function (err, data) {
                 if(err) {
