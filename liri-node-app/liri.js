@@ -1,3 +1,4 @@
+//load required node packages or files that I need
 require("dotenv").config();
 
 var fs = require("fs");
@@ -11,13 +12,13 @@ var moment = require("moment");
 var Spotify = require("node-spotify-api");
 
 var spotify = new Spotify(keys.spotify);
-
+//take in user input and store it in a variable
 var nodeArgs = process.argv;
 
 var command = process.argv[2];
 
 var input ="";
-
+//make sure to include commands or input that include extra spaces
 for(var i = 3; i < nodeArgs.length; i++) {
     if(i > 3 && i < nodeArgs.length) {
         input = input + "+" + nodeArgs[i];
@@ -26,9 +27,7 @@ for(var i = 3; i < nodeArgs.length; i++) {
         input += nodeArgs[i];
     }
 }
-
-var search = process.argv.slice(3).join(" ");
-
+//switch case to call function for whatever command user types
 switch(command) {
     case "movie-this":
      if(input) {
@@ -60,16 +59,16 @@ switch(command) {
      case "do-what-it-says":
        doWhatItSays();
        break;
-
+//create a default message to tell user what to do
     default:
      console.log("Please enter a command: 'movie-this', 'concert-this', 'spotify-this-song', 'do-what-it-says'");
      break; 
 }
-
+//movieThis function begins here
 function movieThis(movieName) {
-
+//omdb API url
 var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
-
+//get JSON response from API and output data to console
 axios.get(queryUrl).then(
     function(response) {
       console.log("Title: " + response.data.Title);  
@@ -81,7 +80,7 @@ axios.get(queryUrl).then(
       console.log("Plot: " + response.data.Plot);
       console.log("Actors: " + response.data.Actors);
       console.log("------------PLEASE ENTER NEXT SEARCH------------");
-
+//output data to log.txt file using line breaks to make it easier to read
       fs.appendFile('log.txt', "\nTitle: " + response.data.Title + "\nRelease Year: " + response.data.Year + "\nIMDB Rating: " + response.data.imdbRating + "\nRotten Tomatoes Rating: " + response.data.Ratings[1].Value + "\nProduced in: " + response.data.Country + "\nLanguage: " + response.data.Language + "\nPlot: " + response.data.Plot + "\nActors: " + response.data.Actors + "\n----------------------------------------------------------------------------\n", function(err) {
           if(err) {
               console.log("error");
@@ -89,7 +88,8 @@ axios.get(queryUrl).then(
         });  
       });
     }
-
+//end of movieThis function
+//begin concertThis function
     function concertThis(artist) {
         
             var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
@@ -109,8 +109,8 @@ axios.get(queryUrl).then(
                     });
                 });
             };
-
-
+//end of concertThis function
+//begin spotifyThisSong function - uses spotify ID and secret from keys.js
         function spotifyThisSong(song) {
             spotify.search({ type: 'track', query: song }, function(error, data) {
             if(!error) {
@@ -130,7 +130,8 @@ axios.get(queryUrl).then(
                 }   
             });
         }
-            
+//end of spotifyThisSong function
+//begin doWhatItSays function - read random.txt file- splits into an array, uses second item of string for spotify function   
         function doWhatItSays() {
             fs.readFile("random.txt", "utf8", function (err, data) {
                 if(err) {
