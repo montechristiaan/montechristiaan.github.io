@@ -17,7 +17,7 @@ connection.connect(function(err) {
 
 function queryItems() {
     connection.query("SELECT item_id, product_name, price FROM products", function(err, res) {
-        console.log("ID:   " + "Product Name:   " + "Price: ");
+        console.log("\n" + "ID:   " + "Product Name:   " + "Price: ");
         console.log("-------------------------------")
         for(var i = 0; i < res.length; i++) {
             console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].price);
@@ -75,7 +75,7 @@ function start() {
             }
             else {
                 console.log("Item Not Available -- Try Another Order!");
-                connection.end();
+                queryItems();
             };
         
     function confirmOrder() {
@@ -91,6 +91,7 @@ function start() {
             .then(function(response) {
                 if(response.confirm === "Y") {
                     console.log("Your total for this order is: " + "$" + (quantity * product.price));
+                    updateDB(product);
                 }
                 else if(response.confirm === "N") {
                     console.log("Canceling Order!");
@@ -98,9 +99,43 @@ function start() {
                 }
             });
         };
+    
+    function updateDB(product) {
+        connection.query("UPDATE products SET ? WHERE ?", [
+            {
+                stock_quantity: (product.stock_quantity - quantity)
+            },
+            {
+                item_id: product.item_id
+            }
+        ],
+        function(err, res) {
+            console.log("Thank You for Shopping Bamazon!");
+            chooseAgain();
+        });
+    };
 
+    function chooseAgain() {
+        inquirer    
+            .prompt([
+                {
+                name: "shopagain",
+                type: "list",
+                choices: ["Y", "N"],
+                message: "Would you like to shop again?"
+                }
+            ])
+            .then(function(answer) {
+                if(answer.shopagain === "Y") {
+                    queryItems();
+                }
+                else {
+                    console.log("Goodbye!");
+                    connection.end();
+                };
+            });
+    };
 
-
-        })
-    }
+        });
+    };
 
