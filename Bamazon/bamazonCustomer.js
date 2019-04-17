@@ -1,6 +1,7 @@
+//require pkgs needed for working app
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-
+//create connection to mysql database
 var connection = mysql.createConnection({
     host: "localhost",
     port: 8889,
@@ -8,12 +9,12 @@ var connection = mysql.createConnection({
     password: "root",
     database: "bamazon"
 });
-
+//connect to database
 connection.connect(function(err) {
     if(err) throw err;
     queryItems();
 });
-
+//function to display item id, products, and price from database table
 function queryItems() {
     connection.query("SELECT item_id, product_name, price FROM products", function(err, res) {
         console.log("\n" + "ID:   " + "Product Name:   " + "Price: ");
@@ -25,7 +26,7 @@ function queryItems() {
         start();
     });
 }
-
+//prompt user to pick an item id and enter a quantity of how many they'd like to order 
 function start() {
     inquirer
         .prompt([{
@@ -55,7 +56,7 @@ function start() {
             checkPurchase(answer.whatproduct, answer.howmany);
         });
     };
-
+    //check to see if the item the user wants is available by checking the quantity in the database
     function checkPurchase(productID, quantity) {
         connection.query("SELECT * FROM products WHERE item_id =" + productID, function(err, res) {
             if(err) throw err;
@@ -76,7 +77,7 @@ function start() {
                 console.log("Item Not Available -- Try Another Order!");
                 queryItems();
             };
-        
+    //asking the user to confirm the order, or cancel it
     function confirmOrder() {
         inquirer    
             .prompt([
@@ -98,7 +99,7 @@ function start() {
                 }
             });
         };
-    
+    //update the database with the new quantity based on how many items the user ordered
     function updateDB(product) {
         connection.query("UPDATE products SET ? WHERE ?", [
             {
@@ -113,7 +114,7 @@ function start() {
             chooseAgain();
         });
     };
-
+    //asking whether the user wants to start over or end the connection
     function chooseAgain() {
         inquirer    
             .prompt([
