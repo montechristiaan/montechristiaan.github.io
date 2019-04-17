@@ -53,10 +53,54 @@ function start() {
             }
         ])
         .then(function(answer) {
-            connection.query(
-                
-            )
-        })
+            checkPurchase(answer.whatproduct, answer.howmany);
+        });
+    };
 
-}
+    function checkPurchase(productID, quantity) {
+        connection.query("SELECT * FROM products WHERE item_id =" + productID, function(err, res) {
+            if(err) throw err;
+            var product = res[0];
+            console.log("\n" + "You have chosen: " + "\n");
+            console.log("-------------------");
+            console.log("Product Name: " + product.product_name);
+            console.log("Price: " + "$" + product.price);
+            console.log("Quantity: " + quantity);
+            console.log("Available: " + product.stock_quantity);
+            console.log("-------------------");
+
+            if(quantity <= product.stock_quantity) {
+                console.log("Item Available");
+                confirmOrder();
+            }
+            else {
+                console.log("Item Not Available -- Try Another Order!");
+                connection.end();
+            };
+        
+    function confirmOrder() {
+        inquirer    
+            .prompt([
+                {
+                name: "confirm",    
+                type: "list",
+                message: "Is this the correct order?",
+                choices: ["Y", "N"]
+                }
+            ])
+            .then(function(response) {
+                if(response.confirm === "Y") {
+                    console.log("Your total for this order is: " + "$" + (quantity * product.price));
+                }
+                else if(response.confirm === "N") {
+                    console.log("Canceling Order!");
+                    connection.end();
+                }
+            });
+        };
+
+
+
+        })
+    }
 
