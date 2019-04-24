@@ -16,10 +16,14 @@ app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "./app/public/home.html"))
 })
 
-app.post("/add-friend", function(req, res) {
+app.post("/api/friends", function(req, res) {
     var body = req.body;
     console.log("body", body);
 })
+
+require(path.join(__dirname, "./app/routing/apiRoutes"))(app);
+require(path.join(__dirname, "./app/routing/htmlRoutes"))(app);
+
 
 app.listen(PORT, function() {
     console.log("I am listening");
