@@ -169,7 +169,7 @@
 
 
 </div>
-
+<script src="https://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 
 $("#submitButton").on("click", function(event) {
@@ -191,11 +191,12 @@ $("#submitButton").on("click", function(event) {
               $("#question10").val().trim(),
             ]
         };
+          console.log(userInput);
 
-        $.post("/api/friends", userInput)
-        .done(function(data) {
-           alert("Your best match is: " + data.matchName);
+        $.post("/api/friends", userInput, function(data) {
+            alert("Your best match is: " + data.name) 
         });
+        
 });
 
 
