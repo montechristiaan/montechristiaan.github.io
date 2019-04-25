@@ -160,7 +160,8 @@
         <option value="5">5 (Strongly Agree)</option>
       </select>
       <br>
-      <input class="btn btn-primary" type="submit" value="Submit" id="submitButton">
+      <input class="btn btn-primary" type="submit" value="Submit" id="submitButton"> 
+      <a class="btn btn-primary" href="#" role="button">Try Again?</a>
       
       <hr>
 
@@ -171,10 +172,10 @@
 </div>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-
+//create action on submit click
 $("#submitButton").on("click", function(event) {
         event.preventDefault();
-
+//take in user input
         var userInput = {
             name: $("#nameInput").val().trim(),
             photo: $("#photoInput").val().trim(),
@@ -192,7 +193,7 @@ $("#submitButton").on("click", function(event) {
             ]
         };
           console.log(userInput);
-
+        //add user input to api friends page, alert match to user
         $.post("/api/friends", userInput, function(data) {
             alert("Your best match is: " + data.name) 
         });

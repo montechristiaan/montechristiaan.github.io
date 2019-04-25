@@ -1,3 +1,4 @@
+//array to store the friends data
 var friendArr = [
     {
         "name":"Kermit the Frog",
