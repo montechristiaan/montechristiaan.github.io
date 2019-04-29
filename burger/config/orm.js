@@ -1,26 +1,17 @@
 var connection = require("./connection.js");
 
+var tableName = "burgers";
+
 var orm = {
-    selectAll: function(data) {
-        var queryString = "SELECT ?? FROM ??";
-        connection.query(queryString, [data], function(err, result) {
+    selectAll: function(cb) {
+        var queryString = "SELECT * FROM " + tableName;
+        connection.query(queryString, function(err, result) {
             if(err) throw err; 
-            console.log(result);
+            cb(result);
         });
     },
-    insertOne: function(data) {
-        var queryString = "INSERT ?? INTO ??";
-        connection.query(queryString, [data], function(err, result) {
-            if(err) throw err;
-            console.log(result);
-        });
-    },
-    updateOne: function(data) {
-        var queryString = "UPDATE ?? WHERE ??";
-        connection.query(queryString, [data], function(err, result) {
-            if(err) throw err;
-            console.log(result);
-        }); 
+    insertOne: function() {
+
     }
 };
 
