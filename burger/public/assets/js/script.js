@@ -1,17 +1,18 @@
 $(function() {
     $(".change-devoured").on("click", function(event) {
       var id = $(this).data("id");
-  
-      var newDevoured = {
-        devoured: 1
+      var newDevoured = $(this).data("newDevoured");
+     
+      var newDevouredState = {
+        devoured: newDevoured
       };
   
       $.ajax("/api/burgers/" + id, {
         type: "PUT",
-        data: newDevoured
+        data: newDevouredState
       }).then(
         function() {
-          console.log("Eaten", newDevoured);
+          console.log("changed devoured to ", newDevoured);
           location.reload();
         }
       );
@@ -21,19 +22,16 @@ $(function() {
       event.preventDefault();
 
       var newBurger = {
-        burger_name: $("#ca").val().trim(),
-        devoured: 0
+        name: $("#ca").val().trim(),
+        devoured: $("[name=devoured]:checked").val().trim()
       };
-
-      console.log(newBurger);
   
       $.ajax("/api/burgers", {
         type: "POST",
         data: newBurger
       }).then(
         function() {
-          console.log("New Burger");
-          $("#ca").val("");
+          console.log("created new burger");
           location.reload();
         }
       );
