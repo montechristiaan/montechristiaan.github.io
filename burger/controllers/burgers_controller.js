@@ -5,13 +5,18 @@ var router = express.Router();
 var burger = require("../models/burger.js");
 
 router.get("/", function(req, res) {
+
     burger.all(function(data) {
+
         var hbsObject = {
             burgers: data
         };
-        console.log(hbsObject);
+
+        console.log("-----All the burgers my good chum: ", JSON.stringify(hbsObject[0]));
+
         res.render("index", hbsObject);
     });
+
 });
 
 router.post("/api/burgers", function(req, res) {
